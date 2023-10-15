@@ -6,4 +6,3 @@ all:
 
 clean:
 	rm $(INFILE)
-
