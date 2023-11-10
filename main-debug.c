@@ -13,18 +13,6 @@
 #define debugf(...)
 #endif
 
-void shr_title()
-{
-    printf("███████╗██╗  ██╗███████╗██╗     ██╗     ██████╗ ███████╗ █████╗ ██╗     ███╗   ███╗\n");
-    printf("██╔════╝██║  ██║██╔════╝██║     ██║     ██╔══██╗██╔════╝██╔══██╗██║     ████╗ ████║\n");
-    printf("███████╗███████║█████╗  ██║     ██║     ██████╔╝█████╗  ███████║██║     ██╔████╔██║\n");
-    printf("╚════██║██╔══██║██╔══╝  ██║     ██║     ██╔══██╗██╔══╝  ██╔══██║██║     ██║╚██╔╝██║\n");
-    printf("███████║██║  ██║███████╗███████╗███████╗██║  ██║███████╗██║  ██║███████╗██║ ╚═╝ ██║\n");
-    printf("╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝\n");
-
-    printf("\nYou have entered the shellrealm!\n\n");
-
-}
 
 char *shr_readline(void)
 {
@@ -41,6 +29,8 @@ char **shr_readargs(char *line)
     int index = 0;
     char **arguments = malloc(64 * sizeof(char*));
     char *command;
+    
+    debugf("\t[DEBUG] Standard Input: %s", line);
 
     command = strtok(line, " \t\r\n\a");
     while (command != NULL) {
@@ -66,6 +56,7 @@ int shr_execve(char *arguments[])
     pid = fork();
 
     if (pid == 0) {
+        debugf("\t[DEBUG] Executing command: %s\n", arguments[0]);
         execvp(arguments[0], arguments);
         perror("shr");
         exit(EXIT_FAILURE);
@@ -85,12 +76,17 @@ void shellrealm(void)
     char **arguments;
     int status;
 
-    shr_title();
-
     do {
         printf("(shellrealm) ");
         line = shr_readline();
         arguments = shr_readargs(line);
+
+        int index = 0;
+        while (arguments[index] != NULL) {
+            debugf("\t[DEBUG] Argument %d: %s\n", index, arguments[index]);
+            index++;
+        }
+
         status = shr_execve(arguments);
 
         free(line);
