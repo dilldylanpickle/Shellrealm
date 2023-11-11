@@ -23,7 +23,8 @@ void shr_title() {
     printf("You have entered the shellrealm!\n");
 }
 
-int shr_infect(char **arguments) {
+int shr_infect(char **arguments)
+{
     if (arguments[1] == NULL || !is_valid_ip(arguments[1])) {
         printf("[-] Error: Invalid IP address.\n");
         printf("Usage: infect [IP Address] [optional payload]\n");
@@ -85,18 +86,23 @@ int shr_send(char **arguments) {
     return 1;
 }
 
-
-int shr_rootkit(char **arguments) {
+int shr_rootkit(char **arguments)
+{
     if (arguments[1] == NULL) {
         printf("[-] Error: No rootkit name provided.\n");
         printf("Usage: rootkit [rootkit name]\n");
         return 1;
+    } else {
+        if (strcmp(arguments[1], "hello") == 0) {
+            printf("hello rootkit contents:\nhelloworld\n");
+        } else {
+            printf("Unknown rootkit '%s'\n", arguments[1]);
+        }
     }
-
-    printf("[+] Deploying rootkit: %s\n", arguments[1]);
 
     return 1;
 }
+
 
 int shr_payload(char **arguments) {
 

@@ -14,6 +14,7 @@ int shr_payload(char **arguments);
 int shr_send(char **arguments);
 int shr_rootkit(char **arguments);
 int shr_access(char **arguments);
+int shr_server(char **arguments);
 
 typedef struct {
     char *name;

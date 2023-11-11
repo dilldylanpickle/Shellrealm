@@ -7,10 +7,32 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-int main(int argc, char *argv[])
+int shr_transfer(int socket, const char* filename) {
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL) {
+        perror("[-] Error in reading file");
+        return -1;
+    }
+
+    char buffer[1024];
+    int bytes_read;
+
+    while ((bytes_read = fread(buffer, 1, sizeof(buffer), file)) > 0) {
+        if (send(socket, buffer, bytes_read, 0) < 0) {
+            perror("[-] Failed to send file");
+            fclose(file);
+            return -1;
+        }
+    }
+
+    fclose(file);
+    return 0;
+}
+
+int server(char *ip_addr)
 {
     // Server IP and Port
-    char *server_ip = "127.0.0.1";
+    //char *server_ip = "127.0.0.1";
     int port = 42069;
 
     // File descriptors and return value
@@ -32,7 +54,7 @@ int main(int argc, char *argv[])
     // Set the server address and port
     memset(&server_addr, 0, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = inet_addr(server_ip);
+    server_addr.sin_addr.s_addr = inet_addr(ip_addr);
     server_addr.sin_port = port;
     
     // Bind the socket to the server address

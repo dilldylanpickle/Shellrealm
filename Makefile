@@ -1,6 +1,6 @@
 FLAGS=-g -Wall
 LIBS=-lreadline
-SRC_FILES=main.c error.c
+SRC_FILES=main.c error.c server.c
 OBJ_FILES=$(patsubst %.c,%.o,$(SRC_FILES))
 EXE_FILE=shellrealm
 
