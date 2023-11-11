@@ -19,7 +19,8 @@ void shr_title() {
     printf("╚════██║██╔══██║██╔══╝  ██║     ██║     ██╔══██╗██╔══╝  ██╔══██║██║     ██║╚██╔╝██║\n");
     printf("███████║██║  ██║███████╗███████╗███████╗██║  ██║███████╗██║  ██║███████╗██║ ╚═╝ ██║\n");
     printf("╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝\n");
-    printf("\nYou have entered the shellrealm!\n");
+    printf("\n");
+    printf("You have entered the shellrealm!\n");
 }
 
 int shr_infect(char **arguments) {
@@ -39,54 +40,43 @@ int shr_infect(char **arguments) {
         printf("[+] Attempting to infect %s...\n", arguments[1]);
     }
     
-    // Proof-of-concept code
     printf("[+] Victim %s has been compromised!\n", arguments[1]);
-    //printf("[+] Spawning shell!\n\n");
-
-    // LMAO
-    //system("/bin/sh");
 
     return 1;
 }
 
 int shr_access(char **arguments) {
-    /*
+    
     if (arguments[1] == NULL || !is_valid_ip(arguments[1])) {
         printf("[-] Error: Invalid IP address.\n");
         printf("Usage: access [IP Address]\n");
         return 1;
     }
-    */
 
     printf("[/] Attempting to access %s...\n", arguments[1]);
-    printf("[+] Now accessing %s...\n", arguments[1]);
-    printf("[+] Spawning shell!\n\n");
-    system("/bin/sh");
+    
+    //printf("[+] Now accessing %s...\n", arguments[1]);
+    //printf("[+] Spawning shell!\n\n");
+    //system("/bin/sh");
 
     return 1;
 }
 
 
 int shr_send(char **arguments) {
-    // Check if there are enough arguments to send
     if (arguments[1] == NULL || arguments[2] == NULL || arguments[3] == NULL) {
         printf("[-] Error: Insufficient arguments.\n");
-        printf("Usage: send [rootkit/malware] [name] [IP Address]\n");
+        printf("Usage: send [rootkit] [name] [IP Address]\n");
         return 1;
     }
 
-    // Check if the first argument is "rootkit" or "malware"
     if (strcmp(arguments[1], "rootkit") == 0 ) {
-        // Validate the IP address
         if (!is_valid_ip(arguments[3])) {
             printf("[-] Error: Invalid IP address.\n");
             return 1;
         }
-
-        // Perform the sending action
         printf("[/] Sending %s %s to %s\n", arguments[1], arguments[2], arguments[3]);
         printf("[+] The rootkit %s has been planted\n", arguments[2]);
-        // Here you can implement the logic for sending the rootkit/malware
     } else {
         printf("[-] Error: Unknown type '%s'. Only 'rootkit' is supported.\n", arguments[1]);
         return 1;
@@ -103,18 +93,15 @@ int shr_rootkit(char **arguments) {
         return 1;
     }
 
-    // Example action based on the rootkit name
     printf("[+] Deploying rootkit: %s\n", arguments[1]);
-    // Add logic here for what the rootkit should do
 
     return 1;
 }
 
 int shr_payload(char **arguments) {
-    printf("Payload command executed with arguments:\n");
-    for (int i = 1; arguments[i] != NULL; i++) {
-        printf("%s\n", arguments[i]);
-    }
+
+    printf("A very real exploit :)\n");
+
     return 1;
 }
 
