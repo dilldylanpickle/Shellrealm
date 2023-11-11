@@ -31,7 +31,7 @@ int shr_infect(char **arguments) {
 
     if (arguments[2] != NULL) {
         if (arguments[3] != NULL) {
-            printf("[+] Attempting to infect %s with payload %s...\n", arguments[1], arguments[3]);
+            printf("[/] Attempting to infect %s with payload %s...\n", arguments[1], arguments[3]);
         } else {
             printf("[+] Attempting to infect %s with payload %s...\n", arguments[1], arguments[2]);
         }
@@ -58,8 +58,7 @@ int shr_access(char **arguments) {
     }
     */
 
-    printf("[-] Attempting to access %s...\n", arguments[1]);
-
+    printf("[/] Attempting to access %s...\n", arguments[1]);
     printf("[+] Now accessing %s...\n", arguments[1]);
     printf("[+] Spawning shell!\n\n");
     system("/bin/sh");
@@ -85,7 +84,7 @@ int shr_send(char **arguments) {
         }
 
         // Perform the sending action
-        printf("[-] Sending %s %s to %s\n", arguments[1], arguments[2], arguments[3]);
+        printf("[/] Sending %s %s to %s\n", arguments[1], arguments[2], arguments[3]);
         printf("[+] The rootkit %s has been planted\n", arguments[2]);
         // Here you can implement the logic for sending the rootkit/malware
     } else {
