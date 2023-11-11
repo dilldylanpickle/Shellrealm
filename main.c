@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include <readline/readline.h>
+#include <readline/history.h>
+
 #include "error.h"
 
 #define debug_on 1
@@ -76,17 +80,10 @@ int shr_version(char **arguments) {
 }
 
 char *shr_readline(void) {
-    char *line = NULL;
-    size_t bufsize = 0;
-
-    if (getline(&line, &bufsize, stdin) == -1) {
-        if (!feof(stdin)) {
-            perror("getline failed");
-        }
-        free(line);
-        return NULL;
+    char *line = readline("(shellrealm) ");
+    if (line && *line) {
+        add_history(line);
     }
-
     return line;
 }
 
@@ -146,7 +143,6 @@ void shellrealm(void) {
     shr_title();
 
     do {
-        printf("(shellrealm) ");
         line = shr_readline();
         if (!line) {
             break;
