@@ -9,6 +9,10 @@
 int shr_exit(char **arguments);
 int shr_version(char **arguments);
 int shr_help(char **arguments);
+int shr_infect(char **arguments);
+int shr_payload(char **arguments);
+int shr_send(char **arguments);
+int shr_rootkit(char **arguments);
 int shr_access(char **arguments);
 
 typedef struct {
@@ -20,6 +24,10 @@ shrcmds commands[] = {
     {"exit", shr_exit},
     {"version", shr_version},
     {"help", shr_help},
+    {"infect", shr_infect},
+    {"payload", shr_payload},
+    {"send", shr_send},
+    {"rootkit", shr_rootkit},
     {"access", shr_access},
 };
 
