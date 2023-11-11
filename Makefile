@@ -1,11 +1,15 @@
 FLAGS=-g -Wall
-SRC_FILES=main.c main-debug.c server.c
-EXE_FILES=$(patsubst %.c,%,$(SRC_FILES))
+SRC_FILES=main.c error.c
+OBJ_FILES=$(patsubst %.c,%.o,$(SRC_FILES))
+EXE_FILE=shellrealm  # Replace with your desired executable name
 
-all: $(EXE_FILES)
+all: $(EXE_FILE)
 
-%: %.c
-	gcc $< $(FLAGS) -o $@
+$(EXE_FILE): $(OBJ_FILES)
+	gcc $(FLAGS) -o $@ $^
+
+%.o: %.c
+	gcc $(FLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(EXE_FILES)
+	rm -f $(EXE_FILE) $(OBJ_FILES)

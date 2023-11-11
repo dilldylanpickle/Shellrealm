@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "error.h"
 
 #define debug_on 1
 
@@ -16,6 +17,7 @@
 int shr_exit(char **arguments);
 int shr_version(char **arguments);
 int shr_help(char **arguments);
+int shr_access(char **arguments);
 
 typedef struct {
     char *name;
@@ -26,6 +28,7 @@ shrcmds commands[] = {
     {"exit", shr_exit},
     {"version", shr_version},
     {"help", shr_help},
+    {"access", shr_access},
 };
 
 int cmds = sizeof(commands) / sizeof(shrcmds);
@@ -40,6 +43,19 @@ void shr_title() {
     printf("╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝\n");
     printf("\nYou have entered the shellrealm!\n\n");
 }
+
+int shr_access(char **arguments)
+{
+    if (arguments[1] == NULL || !is_valid_ip(arguments[1])) {
+        printf("[-] Error: Invalid IP address.\n");
+        printf("Usage: access [IP Address]\n");
+        return 1;
+    }
+
+    printf("Attempting to access %s...\n", arguments[1]);
+    return 1;
+}
+
 
 int shr_help(char **arguments) {
     printf("Shellrealm commands:\n");
